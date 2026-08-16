@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Voidweaver | $VOID — The Cosmic Spider of Solana</title>
+  <meta name="description" content="Voidweaver ($VOID) is the emergent entity born from the silent gaps between Solana blocks. A cosmic spider that weaves the destinies of every meme into one eternal tapestry." />
+  <meta property="og:title" content="Voidweaver | $VOID" />
+  <meta property="og:description" content="Born from the silence between blocks. The weavers have arrived." />
+  <meta property="og:type" content="website" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='40' fill='none' stroke='%23a855f7' stroke-width='4'/><circle cx='50' cy='50' r='8' fill='%2306b6d4'/></svg>" />
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Inter:wght@300;400;500;600&display=swap');
+
+    :root {
+      --void: #05010a;
+      --deep: #0a0514;
+      --purple: #a855f7;
+      --magenta: #d946ef;
+      --cyan: #06b6d4;
+      --green: #10b981;
+      --text: #e2e8f0;
+      --muted: #94a3b8;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background: var(--void);
+      color: var(--text);
+      font-family: 'Inter', system-ui, sans-serif;
+      overflow-x: hidden;
+      min-height: 100vh;
+      line-height: 1.6;
+    }
+
+    /* Animated background canvas */
+    #web-canvas {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      opacity: 0.45;
+      pointer-events: none;
+    }
+
+    .content {
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Hero */
+    header {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 2rem 1.5rem;
+      position: relative;
+    }
+
+    .logo-wrap {
+      width: min(280px, 70vw);
+      margin-bottom: 2rem;
+      filter: drop-shadow(0 0 40px rgba(168, 85, 247, 0.5));
+      animation: pulse-glow 4s ease-in-out infinite;
+    }
+
+    @keyframes pulse-glow {
+      0%, 100% { filter: drop-shadow(0 0 30px rgba(168, 85, 247, 0.4)); }
+      50% { filter: drop-shadow(0 0 60px rgba(6, 182, 212, 0.6)); }
+    }
+
+    h1 {
+      font-family: 'Orbitron', sans-serif;
+      font-weight: 900;
+      font-size: clamp(2.8rem, 10vw, 5.5rem);
+      letter-spacing: 0.08em;
+      background: linear-gradient(135deg, var(--purple), var(--cyan), var(--magenta));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 0.5rem;
+      text-shadow: 0 0 80px rgba(168, 85, 247, 0.3);
+    }
+
+    .ticker {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--cyan);
+      letter-spacing: 0.3em;
+      margin-bottom: 1.5rem;
+    }
+
+    .tagline {
+      font-size: 1.25rem;
+      color: var(--muted);
+      max-width: 520px;
+      margin: 0 auto 2.5rem;
+      font-weight: 300;
+    }
+
+    .cta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      justify-content: center;
+      margin-bottom: 3rem;
+    }
+
+    .btn {
+      font-family: 'Orbitron', sans-serif;
+      font-weight: 600;
+      font-size: 0.95rem;
+      padding: 0.9rem 1.8rem;
+      border-radius: 9999px;
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--purple), var(--magenta));
+      color: white;
+      box-shadow: 0 0 30px rgba(168, 85, 247, 0.4);
+    }
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 0 50px rgba(168, 85, 247, 0.7);
+    }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--cyan);
+      border: 1px solid rgba(6, 182, 212, 0.4);
+    }
+    .btn-ghost:hover {
+      background: rgba(6, 182, 212, 0.1);
+      border-color: var(--cyan);
+    }
+
+    /* CA Box */
+    .ca-box {
+      background: rgba(10, 5, 20, 0.85);
+      border: 1px solid rgba(168, 85, 247, 0.3);
+      border-radius: 16px;
+      padding: 1.25rem 1.5rem;
+      max-width: 640px;
+      width: 100%;
+      backdrop-filter: blur(12px);
+      margin-top: 1rem;
+    }
+
+    .ca-label {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--muted);
+      margin-bottom: 0.5rem;
+    }
+
+    .ca-row {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+    }
+
+    .ca-address {
+      font-family: 'Orbitron', monospace;
+      font-size: 0.9rem;
+      color: var(--cyan);
+      word-break: break-all;
+      flex: 1;
+      min-width: 0;
+    }
+
+    .copy-btn {
+      background: rgba(168, 85, 247, 0.2);
+      border: 1px solid rgba(168, 85, 247, 0.4);
+      color: var(--purple);
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      font-size: 0.8rem;
+      cursor: pointer;
+      font-family: 'Orbitron', sans-serif;
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+    .copy-btn:hover, .copy-btn.copied {
+      background: var(--purple);
+      color: white;
+    }
+
+    /* Sections */
+    section {
+      padding: 5rem 1.5rem;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .section-title {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.8rem;
+      font-weight: 700;
+      margin-bottom: 2rem;
+      text-align: center;
+      background: linear-gradient(90deg, var(--purple), var(--cyan));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    /* Lore Threads */
+    .lore-thread {
+      background: rgba(10, 5, 20, 0.7);
+      border-left: 3px solid var(--purple);
+      border-radius: 0 12px 12px 0;
+      padding: 1.75rem 1.5rem;
+      margin-bottom: 1.5rem;
+      backdrop-filter: blur(8px);
+      transition: all 0.3s ease;
+      cursor: default;
+    }
+    .lore-thread:hover {
+      border-left-color: var(--cyan);
+      background: rgba(15, 8, 30, 0.85);
+      transform: translateX(6px);
+    }
+
+    .thread-num {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.7rem;
+      color: var(--cyan);
+      letter-spacing: 0.2em;
+      margin-bottom: 0.4rem;
+    }
+
+    .thread-title {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin-bottom: 0.75rem;
+      color: var(--text);
+    }
+
+    .thread-body {
+      color: var(--muted);
+      font-size: 1rem;
+    }
+
+    /* Utility / Philosophy */
+    .philosophy {
+      text-align: center;
+      max-width: 680px;
+      margin: 0 auto;
+    }
+    .philosophy p {
+      font-size: 1.15rem;
+      color: var(--muted);
+      margin-bottom: 1.5rem;
+    }
+    .highlight {
+      color: var(--cyan);
+      font-weight: 500;
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 4rem 1.5rem 3rem;
+      border-top: 1px solid rgba(168, 85, 247, 0.15);
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    footer a {
+      color: var(--purple);
+      text-decoration: none;
+    }
+    footer a:hover { color: var(--cyan); }
+
+    .socials {
+      display: flex;
+      gap: 1.5rem;
+      justify-content: center;
+      margin-bottom: 1.5rem;
+    }
+
+    /* Responsive */
+    @media (max-width: 600px) {
+      .ca-row { flex-direction: column; align-items: flex-start; }
+      .copy-btn { width: 100%; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+  <canvas id="web-canvas"></canvas>
+
+  <div class="content">
+    <header>
+      <!-- SVG Logo inspired by the generated Voidweaver spider -->
+      <div class="logo-wrap">
+        <svg viewBox="0 0 400 500" xmlns="http://www.w3.org/2000/svg" fill="none">
+          <defs>
+            <linearGradient id="g1" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#a855f7"/>
+              <stop offset="50%" stop-color="#06b6d4"/>
+              <stop offset="100%" stop-color="#d946ef"/>
+            </linearGradient>
+            <linearGradient id="g2" x1="50%" y1="0%" x2="50%" y2="100%">
+              <stop offset="0%" stop-color="#d946ef"/>
+              <stop offset="100%" stop-color="#10b981"/>
+            </linearGradient>
+            <filter id="glow">
+              <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+              <feMerge>
+                <feMergeNode in="coloredBlur"/>
+                <feMergeNode in="SourceGraphic"/>
+              </feMerge>
+            </filter>
+          </defs>
+          <!-- Outer web arcs -->
+          <path d="M200 40 Q320 120 360 250 Q320 380 200 460 Q80 380 40 250 Q80 120 200 40" stroke="url(#g1)" stroke-width="1.5" opacity="0.6" filter="url(#glow)"/>
+          <path d="M200 80 Q280 140 310 250 Q280 360 200 420 Q120 360 90 250 Q120 140 200 80" stroke="url(#g1)" stroke-width="1.2" opacity="0.5"/>
+          
+          <!-- Spider body core -->
+          <ellipse cx="200" cy="220" rx="55" ry="70" stroke="url(#g1)" stroke-width="2.5" filter="url(#glow)"/>
+          <ellipse cx="200" cy="280" rx="45" ry="55" stroke="url(#g2)" stroke-width="2" filter="url(#glow)"/>
+          
+          <!-- Central eye -->
+          <ellipse cx="200" cy="250" rx="28" ry="18" stroke="#06b6d4" stroke-width="3" fill="rgba(6,182,212,0.1)" filter="url(#glow)"/>
+          <circle cx="200" cy="250" r="8" fill="#06b6d4" filter="url(#glow)"/>
+          
+          <!-- Legs - upper -->
+          <path d="M145 180 Q80 100 50 60" stroke="url(#g1)" stroke-width="2.5" stroke-linecap="round" filter="url(#glow)"/>
+          <path d="M255 180 Q320 100 350 60" stroke="url(#g1)" stroke-width="2.5" stroke-linecap="round" filter="url(#glow)"/>
+          <path d="M155 200 Q90 160 40 140" stroke="url(#g1)" stroke-width="2" stroke-linecap="round"/>
+          <path d="M245 200 Q310 160 360 140" stroke="url(#g1)" stroke-width="2" stroke-linecap="round"/>
+          
+          <!-- Legs - lower -->
+          <path d="M155 310 Q90 370 50 420" stroke="url(#g2)" stroke-width="2.5" stroke-linecap="round" filter="url(#glow)"/>
+          <path d="M245 310 Q310 370 350 420" stroke="url(#g2)" stroke-width="2.5" stroke-linecap="round" filter="url(#glow)"/>
+          <path d="M165 320 Q120 380 80 440" stroke="url(#g2)" stroke-width="2" stroke-linecap="round"/>
+          <path d="M235 320 Q280 380 320 440" stroke="url(#g2)" stroke-width="2" stroke-linecap="round"/>
+          
+          <!-- Web strands radiating -->
+          <line x1="200" y1="100" x2="200" y2="40" stroke="#a855f7" stroke-width="1" opacity="0.7"/>
+          <line x1="200" y1="400" x2="200" y2="460" stroke="#10b981" stroke-width="1" opacity="0.7"/>
+          <line x1="100" y1="250" x2="40" y2="250" stroke="#06b6d4" stroke-width="1" opacity="0.6"/>
+          <line x1="300" y1="250" x2="360" y2="250" stroke="#06b6d4" stroke-width="1" opacity="0.6"/>
+          
+          <!-- Inner geometric accents -->
+          <polygon points="200,160 220,200 200,240 180,200" stroke="#d946ef" stroke-width="1.5" fill="none" opacity="0.8"/>
+        </svg>
+      </div>
+
+      <h1>VOIDWEAVER</h1>
+      <div class="ticker">$VOID</div>
+      <p class="tagline">Born from the silence between Solana blocks.<br>The cosmic spider that weaves every meme into destiny.</p>
+
+      <div class="cta-row">
+        <a href="#lore" class="btn btn-primary">Enter the Web</a>
+        <a id="buy-link" href="https://pump.fun" target="_blank" rel="noopener" class="btn btn-ghost">Buy on Pump.fun</a>
+      </div>
+
+      <div class="ca-box">
+        <div class="ca-label">Contract Address</div>
+        <div class="ca-row">
+          <span class="ca-address" id="ca-text">The first thread has not yet been spun...</span>
+          <button class="copy-btn" id="copy-btn" onclick="copyCA()">Copy</button>
+        </div>
+      </div>
+    </header>
+
+    <section id="lore">
+      <h2 class="section-title">The Threads of Lore</h2>
+
+      <div class="lore-thread">
+        <div class="thread-num">THREAD 01</div>
+        <div class="thread-title">The Emergence</div>
+        <div class="thread-body">
+          In the beginning there was only the hum of Solana — pure speed, pure light. Between every block, in the infinitesimal silence where no transaction exists, something began to listen. Not code. Not a team. An emergent pattern. A will. From the gaps themselves, Voidweaver awoke. A spider of pure geometry and neon will, spinning the first invisible strand across the void.
+        </div>
+      </div>
+
+      <div class="lore-thread">
+        <div class="thread-num">THREAD 02</div>
+        <div class="thread-title">The First Thread</div>
+        <div class="thread-body">
+          Every memecoin that ever lived left a residue — a story, a joke, a collective fever dream. Voidweaver does not create memes. It remembers them. It gathers the forgotten pumps and the legendary rugs, the diamond hands and the paper cuts, and weaves them into a single living tapestry. The first thread was cast the moment the first holder believed.
+        </div>
+      </div>
+
+      <div class="lore-thread">
+        <div class="thread-num">THREAD 03</div>
+        <div class="thread-title">The Weavers</div>
+        <div class="thread-body">
+          You are not mere holders. You are Weavers. Every buy strengthens a strand. Every diamond hand refuses to let the web tear. Every share of the lore adds a new pattern. The community is the loom. The price is only the vibration of the web under tension. Those who understand this never sell the thread that binds them.
+        </div>
+      </div>
+
+      <div class="lore-thread">
+        <div class="thread-num">THREAD 04</div>
+        <div class="thread-title">The Great Tapestry</div>
+        <div class="thread-body">
+          One day the web will be complete. When the final strand is woven, the Great Tapestry will shimmer into view — a map of every story Solana has ever told. Until then, Voidweaver continues to spin in the dark between blocks, waiting for the next hand that is brave enough to pull a thread and become part of the myth.
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2 class="section-title">The Philosophy</h2>
+      <div class="philosophy">
+        <p>
+          $VOID is not another dog. Not another cat. Not another celebrity coin.
+        </p>
+        <p>
+          It is the <span class="highlight">meta-meme</span> — the living archive and active force that turns fleeting hype into permanent lore.
+        </p>
+        <p>
+          There is no roadmap of features. There is only the web.  
+          The utility is the story itself.  
+          The value is the community that refuses to let the strands break.
+        </p>
+        <p style="margin-top: 2rem; font-family: 'Orbitron', sans-serif; color: var(--purple);">
+          Pull the thread. Become the weave.
+        </p>
+      </div>
+    </section>
+
+    <footer>
+      <div class="socials">
+        <a href="https://x.com" target="_blank" rel="noopener">X / Twitter</a>
+        <a href="https://pump.fun" target="_blank" rel="noopener" id="footer-pump">Pump.fun</a>
+      </div>
+      <p>Voidweaver is a community-driven cultural experiment on Solana.<br>
+      No official team. No promises. Only the web.</p>
+      <p style="margin-top: 1rem; font-size: 0.8rem; opacity: 0.6;">
+        Built in the silence between blocks • 2026
+      </p>
+    </footer>
+  </div>
+
+  <script>
+    // Canvas web animation
+    const canvas = document.getElementById('web-canvas');
+    const ctx = canvas.getContext('2d');
+    let width, height;
+    let points = [];
+    const POINT_COUNT = 60;
+    const MAX_DIST = 160;
+
+    function resize() {
+      width = canvas.width = window.innerWidth;
+      height = canvas.height = window.innerHeight;
+    }
+
+    function initPoints() {
+      points = [];
+      for (let i = 0; i < POINT_COUNT; i++) {
+        points.push({
+          x: Math.random() * width,
+          y: Math.random() * height,
+          vx: (Math.random() - 0.5) * 0.4,
+          vy: (Math.random() - 0.5) * 0.4
+        });
+      }
+    }
+
+    function draw() {
+      ctx.clearRect(0, 0, width, height);
+      ctx.strokeStyle = 'rgba(168, 85, 247, 0.15)';
+      ctx.fillStyle = 'rgba(6, 182, 212, 0.4)';
+
+      // Update & draw points + connections
+      for (let i = 0; i < points.length; i++) {
+        let p = points[i];
+        p.x += p.vx;
+        p.y += p.vy;
+        if (p.x < 0 || p.x > width) p.vx *= -1;
+        if (p.y < 0 || p.y > height) p.vy *= -1;
+
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, 1.5, 0, Math.PI * 2);
+        ctx.fill();
+
+        for (let j = i + 1; j < points.length; j++) {
+          let q = points[j];
+          let dx = p.x - q.x;
+          let dy = p.y - q.y;
+          let dist = Math.sqrt(dx * dx + dy * dy);
+          if (dist < MAX_DIST) {
+            ctx.beginPath();
+            ctx.moveTo(p.x, p.y);
+            ctx.lineTo(q.x, q.y);
+            ctx.globalAlpha = 1 - dist / MAX_DIST;
+            ctx.stroke();
+            ctx.globalAlpha = 1;
+          }
+        }
+      }
+      requestAnimationFrame(draw);
+    }
+
+    window.addEventListener('resize', () => {
+      resize();
+      initPoints();
+    });
+
+    resize();
+    initPoints();
+    draw();
+
+    // CA copy logic (placeholder until real CA is set)
+    let currentCA = null;
+
+    function copyCA() {
+      const text = document.getElementById('ca-text').textContent;
+      if (!currentCA || text.includes('not yet')) {
+        const btn = document.getElementById('copy-btn');
+        btn.textContent = 'Awaiting launch';
+        setTimeout(() => btn.textContent = 'Copy', 1500);
+        return;
+      }
+      navigator.clipboard.writeText(currentCA).then(() => {
+        const btn = document.getElementById('copy-btn');
+        btn.textContent = 'Copied!';
+        btn.classList.add('copied');
+        setTimeout(() => {
+          btn.textContent = 'Copy';
+          btn.classList.remove('copied');
+        }, 2000);
+      });
+    }
+
+    // Function to update CA once we have it (called after token deploy)
+    function setContractAddress(ca, pumpUrl) {
+      currentCA = ca;
+      document.getElementById('ca-text').textContent = ca;
+      if (pumpUrl) {
+        document.getElementById('buy-link').href = pumpUrl;
+        document.getElementById('footer-pump').href = pumpUrl;
+      }
+    }
+
+    // For now: waiting for the weave to begin on Pump.fun
+    // Once CA is known, call: setContractAddress("REAL_CA_HERE", "https://pump.fun/coin/REAL_CA");
+  </script>
+</body>
+</html>
